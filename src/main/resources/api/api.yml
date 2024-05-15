@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: Customer API
+  description: API pour gérer les clients
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/customers/getAll:
+    get:
+      tags:
+        - "Customers"
+      operationId: "getAllCustomers"
+      summary: Récupérer tous les clients
+      responses:
+        '200':
+          description: Succès. Renvoie la liste de tous les clients.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          example: "2023-08-29T16:28:58.454Z"
+        name:
+          type: string
+          example: "Jan Schiller"
+        username:
+          type: string
+          example: "Kailee.Greenholt73"
+        firstName:
+          type: string
+          example: "Keven"
+        lastName:
+          type: string
+          example: "Kris"
+        address:
+          $ref: '#/components/schemas/Address'
+        profile:
+          $ref: '#/components/schemas/Profile'
+        company:
+          $ref: '#/components/schemas/Company'
+        id:
+          type: string
+          example: "11"
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+          example: "61432-1180"
+        city:
+          type: string
+          example: "St. Joseph"
+    Profile:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: "Mitchell"
+        lastName:
+          type: string
+          example: "Carter"
+    Company:
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: "Bechtelar LLC"
+    Order:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          example: "2023-08-30T08:35:27.416Z"
+        id:
+          type: string
+          example: "3"
+        customerId:
+          type: string
+          example: "11"
