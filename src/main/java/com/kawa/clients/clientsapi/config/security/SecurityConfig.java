@@ -11,6 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Configuration de sécurité de l'application SPRING.
+ * Elle définit les autorisations et la gestion implémentés pour la vérification des sessions, des cors et des routes API
+ * authorisées.
+ */
 @Configuration
 @ComponentScan
 @EnableWebSecurity
@@ -18,6 +23,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    /**
+     * Authentifcation basique à l'application donnant accès aux API internes de version 1.
+     *
+     * @param http la sécurité HTTP
+     * @return un filtre de sécurité
+     */
     @Bean
     @Order(1)
     public SecurityFilterChain basicAuthSecurityFilterChain(HttpSecurity http) throws Exception {

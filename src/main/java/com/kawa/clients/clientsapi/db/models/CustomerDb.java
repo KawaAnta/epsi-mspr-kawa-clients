@@ -8,6 +8,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Classe java / DB représentante de la table client / customer
+ */
 @Entity
 @Getter
 @Setter

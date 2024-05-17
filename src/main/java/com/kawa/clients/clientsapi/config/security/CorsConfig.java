@@ -5,6 +5,10 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Configuration des mappings CORS.
+ * Autorise les requêtes API ayant des méthodes GET, POST, PUT et DELETE
+ */
 @Configuration
 @EnableWebMvc
 public class CorsConfig implements WebMvcConfigurer {

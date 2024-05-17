@@ -14,6 +14,10 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Délégué API des clients.
+ * Assure la connexion entre l'API Gateway générale et les micro-service des clients.
+ */
 @Component
 @RequiredArgsConstructor
 public class CustomerApiDelegate implements CustomersApiDelegate {

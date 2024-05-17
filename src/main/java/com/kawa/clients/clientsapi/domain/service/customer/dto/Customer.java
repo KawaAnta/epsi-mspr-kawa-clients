@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Classe java / DTO représentante de l'objet client / customer
+ */
 @Getter
 @Setter
 @Builder
