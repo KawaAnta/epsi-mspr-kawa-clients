@@ -34,7 +34,7 @@ Overall, the Clients microservice serves as a foundational component within the 
 
 #### Prerequisites
 
-* Java Development Kit (JDK) 8 or higher installed on your machine.
+* Java Development Kit (JDK) 17 or higher installed on your machine.
 * Apache Maven installed to manage project dependencies and build the application.
 * Git installed to clone the repository from GitHub.
 
