@@ -23,10 +23,17 @@ jobs:
 
       - name: Verify Ignored Directories
         run: |
-          forbidden_dirs="./.idea ./target ./node_modules ./.vscode"
-          for dir in $forbidden_dirs; do
-            if [[ -d "$dir" ]]; then
-              echo "Forbidden directory '$dir' found. Please ensure it's ignored in .gitignore."
+            forbidden_dirs=".idea target node_modules .vscode"
+            missing_from_gitignore=false
+            for dir in $forbidden_dirs; do
+              if [[ -d "$dir" ]]; then
+                if ! grep -qx "$dir" .gitignore; then
+                  echo "Forbidden directory '$dir' found and is not listed in .gitignore."
+                  missing_from_gitignore=true
+                fi
+              fi
+            done  
+            if $missing_from_gitignore; then
+              echo "Some forbidden directories are not listed in .gitignore. Please ensure they are ignored."
               exit 2
             fi
-          done
