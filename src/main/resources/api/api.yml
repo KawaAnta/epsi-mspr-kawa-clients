@@ -49,6 +49,23 @@ paths:
         '404':
           description: Client non retrouvable
 
+    delete:
+      tags:
+        - "customers"
+      operationId: "deleteCustomerById"
+      parameters:
+        - name: id
+          in: path
+          description: ID du client à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      summary: Supprimer un client à partir de son identifiant
+      responses:
+        '400':
+          description: ID invalide
+
 components:
   schemas:
     Customer:
