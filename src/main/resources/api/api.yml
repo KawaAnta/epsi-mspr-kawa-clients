@@ -6,10 +6,10 @@ info:
 servers:
   - url: http://localhost:8080
 paths:
-  /api/customers/getAll:
+  /internal/api/v1/customers/getAll:
     get:
       tags:
-        - "Customers"
+        - "customers"
       operationId: "getAllCustomers"
       summary: Récupérer tous les clients
       responses:
@@ -21,10 +21,22 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Customer'
+
 components:
   schemas:
     Customer:
       type: object
+      required:
+        - createdAt
+        - name
+        - username
+        - firstName
+        - lastName
+        - postalCode
+        - city
+        - profileFirstName
+        - profileLastName
+        - companyName
       properties:
         createdAt:
           type: string
@@ -42,53 +54,18 @@ components:
         lastName:
           type: string
           example: "Kris"
-        address:
-          $ref: '#/components/schemas/Address'
-        profile:
-          $ref: '#/components/schemas/Profile'
-        company:
-          $ref: '#/components/schemas/Company'
-        id:
-          type: string
-          example: "11"
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-    Address:
-      type: object
-      properties:
         postalCode:
           type: string
           example: "61432-1180"
         city:
           type: string
           example: "St. Joseph"
-    Profile:
-      type: object
-      properties:
-        firstName:
+        profileFirstName:
           type: string
           example: "Mitchell"
-        lastName:
+        profileLastName:
           type: string
           example: "Carter"
-    Company:
-      type: object
-      properties:
         companyName:
           type: string
           example: "Bechtelar LLC"
-    Order:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-          example: "2023-08-30T08:35:27.416Z"
-        id:
-          type: string
-          example: "3"
-        customerId:
-          type: string
-          example: "11"
