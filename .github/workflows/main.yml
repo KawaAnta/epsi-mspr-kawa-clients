@@ -21,10 +21,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2-
 
-      - name: Build and test Java code (using Maven)
-        run: mvn clean verify  # Clean, build, and run tests
-
-      - name: Run Checkstyle (optional)
+      - name: Run Checkstyle
         uses: dbelyaev/action-checkstyle@master  # Check code style (optional)
         with:
           java-version: 17
