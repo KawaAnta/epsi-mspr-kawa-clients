@@ -1,0 +1,28 @@
+on:
+  pull_request:
+    branches: [ develop, release ]
+
+jobs:
+  #Used to check files structure and prevent useless push
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checks_directory
+        run: |
+          if [ -d "./.idea" ]; then echo "Forbidden PHPStorm folder (.idea/) found ! Please, ignore in .gitignore"; exit 2; fi
+          if [ -d "./.vscode" ]; then echo "Forbidden VScode folder (.vscode) found ! Please, ignore in .gitignore"; exit 2; fi
+          if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file (.DS_Store) found ! Please, ignore in .gitignore"; exit 2; fi
+
+  checkstyle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: 'adopt'
+
