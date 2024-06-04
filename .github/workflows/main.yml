@@ -3,22 +3,35 @@ on:
     branches: [ develop, release ]
 
 jobs:
-  Check:
+  java-checks:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK
-      - uses: actions/setup-java@v4.2.1
-      - uses: actions/checkout@v4
-      - uses: dbelyaev/action-checkstyle@master
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: 17
+
+      - name: Cache Maven packages (optional)
+        uses: actions/cache@v3  # Cache Maven dependencies (optional)
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2-
+
+      - name: Build and test Java code (using Maven)
+        run: mvn clean verify  # Clean, build, and run tests
+
+      - name: Run Checkstyle (optional)
+        uses: dbelyaev/action-checkstyle@master  # Check code style (optional)
         with:
           java-version: 17
           distribution: 'temurin'
           architecture: x64
           github_token: ${{ secrets.github_token }}
           checkstyle_config: sun_checks.xml
-          reporter: github-pr-review
-
-        run: mvn --batch-mode --update-snapshots verify
+          reporter: github-pr-review  # Report findings in PR comments
 
       - name: Verify Ignored Directories
         run: |
