@@ -14,10 +14,12 @@ jobs:
           architecture: x64
 
       - uses: actions/checkout@v4
-      - uses: dbelyaev/action-checkstyle
+      - uses: dbelyaev/action-checkstyle@master
+
         with:
           github_token: ${{ secrets.github_token }}
           checkstyle_config: sun_checks.xml
+          reporter: github-pr-review
 
       - name: Verify Ignored Directories
         run: |
