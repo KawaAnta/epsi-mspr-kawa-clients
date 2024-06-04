@@ -14,4 +14,11 @@ public interface CustomerService {
      * @return la liste de tous les clients.
      */
     List<Customer> getAll();
+
+    /**
+     * Lecture d'un client à partir de son identifiant.
+     * @param id identifiant du client.
+     * @return un client.
+     */
+    Customer getById(Long id);
 }

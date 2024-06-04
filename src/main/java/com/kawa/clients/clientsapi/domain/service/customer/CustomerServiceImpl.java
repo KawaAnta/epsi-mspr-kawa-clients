@@ -24,4 +24,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> getAll() {
         return customerRepository.getAll();
     }
+
+    @Override
+    public Customer getById(Long id) {
+        return customerRepository.getById(id);
+    }
 }

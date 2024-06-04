@@ -37,6 +37,12 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
         return ResponseEntity.ok(customerDtoList);
     }
 
+    @Override
+    @NonNull
+    public ResponseEntity<CustomerDto> getCustomerById(Long id) {
+        final Customer customer = customerService.getById(id);
+        return ResponseEntity.ok(mapToDto(customer));
+    }
 
     @NotNull
     private static CustomerDto mapToDto(@NotNull final Customer customer) {

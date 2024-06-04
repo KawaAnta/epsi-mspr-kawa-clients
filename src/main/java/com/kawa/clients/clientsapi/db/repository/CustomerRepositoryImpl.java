@@ -5,7 +5,6 @@ import com.kawa.clients.clientsapi.db.port.mapper.CustomerMapper;
 import com.kawa.clients.clientsapi.domain.ports.CustomerRepository;
 import com.kawa.clients.clientsapi.domain.service.customer.dto.Customer;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -29,5 +28,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         List<CustomerDb> customers = dbRepository.findAll();
         return customers.stream().map(mapper::mapToDomain).toList();
 
+    }
+
+    @Override
+    public Customer getById(Long id) {
+        CustomerDb customerDb = dbRepository.findById(id).orElse(null);
+        return mapper.mapToDomain(customerDb);
     }
 }
