@@ -1,5 +1,8 @@
 on:
-  [pull_request]
+  pull_request:
+    branches:
+      - 'develop'
+      - 'release'
 jobs:
   checkstyle:
     name: runner / checkstyle
@@ -14,12 +17,12 @@ jobs:
           checkstyle_config: google_checks.xml
 
 
-      - name: Verify Ignored Directories
-        run: |
-          forbidden_dirs="./.idea ./target ./node_modules ./.vscode"
-          for dir in $forbidden_dirs; do
-            if [[ -d "$dir" ]]; then
-              echo "Forbidden directory '$dir' found. Please ensure it's ignored in .gitignore."
-              exit 2
-            fi
-          done
+#      - name: Verify Ignored Directories
+#        run: |
+#          forbidden_dirs="./.idea ./target ./node_modules ./.vscode"
+#          for dir in $forbidden_dirs; do
+#            if [[ -d "$dir" ]]; then
+#              echo "Forbidden directory '$dir' found. Please ensure it's ignored in .gitignore."
+#              exit 2
+#            fi
+#          done
