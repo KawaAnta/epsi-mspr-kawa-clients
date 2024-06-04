@@ -13,10 +13,6 @@ jobs:
           if [ -d "./.vscode" ]; then echo "Forbidden VScode folder (.vscode) found ! Please, ignore in .gitignore"; exit 2; fi
           if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file (.DS_Store) found ! Please, ignore in .gitignore"; exit 2; fi
 
-  checkstyle:
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
