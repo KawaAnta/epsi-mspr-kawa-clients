@@ -14,7 +14,7 @@ jobs:
           architecture: x64
 
       - uses: actions/checkout@v4
-      - uses: dbelyaev/action-checkstyle@master
+      - uses: dbelyaev/action-checkstyle
         with:
           github_token: ${{ secrets.github_token }}
           checkstyle_config: sun_checks.xml
