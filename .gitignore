@@ -1,14 +1,12 @@
 <<<<<<< HEAD
 ### Project files ###
 HELP.md
-/.gradle
-gradle.properties
-node_modules
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-src/main/resources/application-local.properties
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+.env
+.mvn/
 
 ### STS ###
 .apt_generated
