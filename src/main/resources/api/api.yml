@@ -10,7 +10,7 @@ paths:
   /internal/api/v1/customers:
     get:
       tags:
-        - "customers"
+        - "Customers"
       operationId: "getAllCustomers"
       summary: Récupérer tous les clients
       responses:
@@ -31,7 +31,7 @@ paths:
 
     post:
       tags:
-        - "customers"
+        - "Customers"
       operationId: "createCustomer"
       summary: Ajoute un nouveau client
       requestBody:
@@ -56,7 +56,7 @@ paths:
   /internal/api/v1/customers/{id}:
     get:
       tags:
-        - "customers"
+        - "Customers"
       operationId: "getCustomerById"
       parameters:
         - name: id
@@ -81,7 +81,7 @@ paths:
 
     put:
       tags:
-        - "customers"
+        - "Customers"
       operationId: "updateCustomer"
       summary: Modifie un client
       parameters:
@@ -108,7 +108,7 @@ paths:
 
     delete:
       tags:
-        - "customers"
+        - "Customers"
       operationId: "deleteCustomerById"
       parameters:
         - name: id
@@ -127,6 +127,8 @@ components:
   schemas:
     Customer:
       type: object
+      required:
+        - name
       properties:
         name:
           type: string

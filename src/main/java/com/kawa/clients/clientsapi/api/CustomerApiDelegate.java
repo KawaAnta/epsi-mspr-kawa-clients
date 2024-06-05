@@ -101,23 +101,37 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
     @Override
     public ResponseEntity<Void> updateCustomer(Long id, CustomerDto customerDto) {
         try {
+            // Récupérer le client existant avec l'ID spécifié
             Customer customer = customerService.getById(id);
 
-            if (customer == null) {
+            // Récupérer la liste de tous les IDs des clients existants
+            List<Customer> customerList = customerService.getAll();
+            List<Long> ids = new ArrayList<>();
+            for (Customer existingCustomer : customerList) {
+                ids.add(existingCustomer.getId());
+            }
+
+            // Vérifier si l'ID spécifié ne correspond à aucun des IDs existants
+            if (!ids.contains(id)) {
                 return ResponseEntity.notFound().build();
             }
 
+            // Copier les propriétés non null de customerDto vers customer
             copyNonNullProperties(customerDto, customer);
 
+            // Enregistrer les modifications
             customerService.save(customer);
+
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
         }
     }
 
     /**
      * Vérifie les champs mentionnés dans la requête API pour les modifier dans l'objet client.
+     *
      * @param source la source
      * @param target l'objet client en BDD
      */
