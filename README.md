@@ -59,9 +59,7 @@ mvn test
 
 Without PostgreSQL in local :
 
-```
-sh
-mvn package -Dmaven.test.skip
+```sh
 docker-compose up
 ```
 
