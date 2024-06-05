@@ -7,7 +7,7 @@ servers:
   - url: http://localhost:8080
 paths:
 
-  /internal/api/v1/customers/getAll:
+  /internal/api/v1/customers:
     get:
       tags:
         - "customers"
@@ -22,6 +22,60 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Customer'
+        '400':
+          description: Mauvaise requête
+        '404':
+          description: Clients non retrouvables
+        '500':
+          description: Erreur interne du serveur
+
+
+    post:
+      tags:
+        - "customers"
+      operationId: "createCustomer"
+      summary: Ajoute un nouveau client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "John Doe"
+                username:
+                  type: string
+                  example: "johndoe"
+                firstName:
+                  type: string
+                  example: "John"
+                lastName:
+                  type: string
+                  example: "Doe"
+                postalCode:
+                  type: string
+                  example: "12345"
+                city:
+                  type: string
+                  example: "New York"
+                profileFirstName:
+                  type: string
+                  example: "John"
+                profileLastName:
+                  type: string
+                  example: "Doe"
+                companyName:
+                  type: string
+                  example: "Doe Inc."
+      responses:
+        '201':
+          description: Client ajouté avec succès
+        '400':
+          description: Mauvaise requête.
+        '500':
+          description: Erreur interne du serveur
 
   /internal/api/v1/customers/{id}:
     get:
@@ -71,6 +125,7 @@ components:
     Customer:
       type: object
       required:
+        - id
         - createdAt
         - name
         - username
@@ -82,6 +137,9 @@ components:
         - profileLastName
         - companyName
       properties:
+        id:
+          type: integer
+          format: int64
         createdAt:
           type: string
           format: date-time

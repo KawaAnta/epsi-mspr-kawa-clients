@@ -50,9 +50,12 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
         return null;
     }
 
+
+
     @NotNull
     private static CustomerDto mapToDto(@NotNull final Customer customer) {
         return new CustomerDto(
+                customer.getId(),
                 customer.getCreatedAt().atOffset(ZoneOffset.UTC),
                 customer.getName(),
                 customer.getUsername(),
