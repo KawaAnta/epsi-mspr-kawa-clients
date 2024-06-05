@@ -42,7 +42,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public void save(Customer customer) {
-        dbRepository.save(mapper.mapFromDomain(customer));
+    public Customer save(Customer customer) {
+        return mapper.mapToDomain(dbRepository.save(mapper.mapFromDomain(customer)));
     }
 }

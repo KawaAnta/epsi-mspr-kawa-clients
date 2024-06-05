@@ -32,5 +32,5 @@ public interface CustomerRepository {
      * Enregistre ou modifie un client en BDD.
      * @param customer client.
      */
-    void save(Customer customer);
+    Customer save(Customer customer);
 }

@@ -75,26 +75,26 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
         }
     }
 
-    @Override
-    public ResponseEntity<Void> createCustomer(@Valid CustomerDto customerDto) {
-        try {
-            final Customer customer = Customer.builder()
-                    .name(customerDto.getName())
-                    .username(customerDto.getUsername())
-                    .firstName(customerDto.getFirstName())
-                    .lastName(customerDto.getLastName())
-                    .createdAt(LocalDateTime.now())
-                    .postalCode(customerDto.getPostalCode())
-                    .city(customerDto.getCity())
-                    .profileFirstName(customerDto.getProfileFirstName())
-                    .profileLastName(customerDto.getProfileLastName())
-                    .companyName(customerDto.getCompanyName())
-                    .build();
 
-            customerService.save(customer);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+    @Override
+    public ResponseEntity<String> createCustomer(@Valid CustomerDto customerDto) {
+        try {
+            Customer customer = new Customer();
+            customer.setName(customerDto.getName());
+            customer.setUsername(customerDto.getUsername());
+            customer.setFirstName(customerDto.getFirstName());
+            customer.setLastName(customerDto.getLastName());
+            customer.setCreatedAt(LocalDateTime.now());
+            customer.setPostalCode(customerDto.getPostalCode());
+            customer.setCity(customerDto.getCity());
+            customer.setProfileFirstName(customerDto.getProfileFirstName());
+            customer.setProfileLastName(customerDto.getProfileLastName());
+            customer.setCompanyName(customerDto.getCompanyName());
+
+            Customer savedCustomer = customerService.save(customer);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer.getId().toString());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur inattendue.");
         }
     }
 
