@@ -85,7 +85,22 @@
 							</tags>
 						</configuration>
 					</plugin>
-
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${checkstyle-maven-plugin.version}</version>
+                        <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
+                            <skip>true</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -94,13 +109,6 @@
 
 
 	<dependencies>
-
-<!--        <dependency>-->
-<!--            <groupId>com.puppycrawl.tools</groupId>-->
-<!--            <artifactId>checkstyle</artifactId>-->
-<!--            <version>10.17.0</version>-->
-<!--        </dependency>-->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
