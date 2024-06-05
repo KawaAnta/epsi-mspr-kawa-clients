@@ -7,7 +7,7 @@ servers:
   - url: http://localhost:8080
 paths:
 
-  /internal/api/v1/customers/getAll:
+  /internal/api/v1/customers:
     get:
       tags:
         - "customers"
@@ -22,6 +22,32 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Customer'
+        '400':
+          description: Mauvaise requête
+        '404':
+          description: Clients non retrouvables
+        '500':
+          description: Erreur interne du serveur
+
+    post:
+      tags:
+        - "customers"
+      operationId: "createCustomer"
+      summary: Ajoute un nouveau client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+
+      responses:
+        '201':
+          description: Client ajouté avec succès
+        '400':
+          description: Mauvaise requête.
+        '500':
+          description: Erreur interne du serveur
 
   /internal/api/v1/customers/{id}:
     get:

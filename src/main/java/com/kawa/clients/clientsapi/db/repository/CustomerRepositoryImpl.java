@@ -39,4 +39,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public void deleteById(Long id) {
         dbRepository.deleteById(id);
     }
+
+    @Override
+    public void save(Customer customer) {
+        dbRepository.save(mapper.mapFromDomain(customer));
+    }
 }

@@ -15,7 +15,22 @@ public interface CustomerRepository {
      */
     List<Customer> getAll();
 
+    /**
+     * Lecture d'un client par ID.
+     * @param id identifiant du client.
+     * @return un client.
+     */
     Customer getById(Long id);
 
+    /**
+     * Supprime un client à travers son ID.
+     * @param id identifiant du client.
+     */
     void deleteById(Long id);
+
+    /**
+     * Enregistre un client en BDD.
+     * @param customer client.
+     */
+    void save(Customer customer);
 }

@@ -27,4 +27,10 @@ public interface CustomerService {
      * @param id identifiant du client à supprimer.
      */
     void deleteById(Long id);
+
+    /**
+     * Enregistre un client en BDD.
+     * @param customer client.
+     */
+    void save(Customer customer);
 }
