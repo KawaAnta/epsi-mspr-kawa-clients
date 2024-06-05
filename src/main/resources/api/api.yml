@@ -79,7 +79,7 @@ paths:
       tags:
         - "customers"
       operationId: "updateCustomer"
-      summary: Modifie un client
+      summary: Modifie un clie nt
       parameters:
         - name: id
           in: path

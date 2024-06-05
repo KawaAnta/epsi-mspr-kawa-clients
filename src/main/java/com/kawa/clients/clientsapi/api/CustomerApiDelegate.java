@@ -2,8 +2,10 @@ package com.kawa.clients.clientsapi.api;
 
 import com.kawa.clients.clientsapi.domain.service.customer.CustomerService;
 import com.kawa.clients.clientsapi.domain.service.customer.dto.Customer;
+import com.kawa.clients.clientsapi.utils.NullAwareBeanUtilsBean;
 import com.kawa.clients.generated.api.model.CustomerDto;
 import com.kawa.clients.generated.api.server.CustomersApiDelegate;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Component;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,19 +104,12 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
         try {
             Customer customer = customerService.getById(id);
 
-            if (customer.getId() == null) {
+            if (customer == null) {
                 return ResponseEntity.notFound().build();
             }
 
-            customer.setName(customerDto.getName());
-            customer.setUsername(customerDto.getUsername());
-            customer.setFirstName(customerDto.getFirstName());
-            customer.setLastName(customerDto.getLastName());
-            customer.setPostalCode(customerDto.getPostalCode());
-            customer.setCity(customerDto.getCity());
-            customer.setProfileFirstName(customerDto.getProfileFirstName());
-            customer.setProfileLastName(customerDto.getProfileLastName());
-            customer.setCompanyName(customerDto.getCompanyName());
+            BeanUtilsBean notNull = new NullAwareBeanUtilsBean();
+            notNull.copyProperties(customer, customerDto);
 
             customerService.save(customer);
             return ResponseEntity.ok().build();
