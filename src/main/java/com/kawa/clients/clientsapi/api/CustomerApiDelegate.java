@@ -2,16 +2,15 @@ package com.kawa.clients.clientsapi.api;
 
 import com.kawa.clients.clientsapi.domain.service.customer.CustomerService;
 import com.kawa.clients.clientsapi.domain.service.customer.dto.Customer;
-import com.kawa.clients.clientsapi.utils.NullAwareBeanUtilsBean;
 import com.kawa.clients.generated.api.model.CustomerDto;
 import com.kawa.clients.generated.api.server.CustomersApiDelegate;
-import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,13 +107,34 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
                 return ResponseEntity.notFound().build();
             }
 
-            BeanUtilsBean notNull = new NullAwareBeanUtilsBean();
-            notNull.copyProperties(customer, customerDto);
+            copyNonNullProperties(customerDto, customer);
 
             customerService.save(customer);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * Vérifie les champs mentionnés dans la requête API pour les modifier dans l'objet client.
+     * @param source la source
+     * @param target l'objet client en BDD
+     */
+    private void copyNonNullProperties(CustomerDto source, Customer target) throws IllegalAccessException {
+        Field[] fields = source.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            Object value = field.get(source);
+            if (value != null) {
+                Field targetField;
+                try {
+                    targetField = target.getClass().getDeclaredField(field.getName());
+                    targetField.setAccessible(true);
+                    targetField.set(target, value);
+                } catch (NoSuchFieldException ignored) {
+                }
+            }
         }
     }
 

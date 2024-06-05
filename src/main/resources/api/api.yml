@@ -79,7 +79,7 @@ paths:
       tags:
         - "customers"
       operationId: "updateCustomer"
-      summary: Modifie un clie nt
+      summary: Modifie un client
       parameters:
         - name: id
           in: path
@@ -123,16 +123,6 @@ components:
   schemas:
     Customer:
       type: object
-      required:
-        - name
-        - username
-        - firstName
-        - lastName
-        - postalCode
-        - city
-        - profileFirstName
-        - profileLastName
-        - companyName
       properties:
         name:
           type: string
