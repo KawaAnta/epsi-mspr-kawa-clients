@@ -21,4 +21,10 @@ public interface CustomerService {
      * @return un client.
      */
     Customer getById(Long id);
+
+    /**
+     * Supprime un client à travers son identifiant.
+     * @param id identifiant du client à supprimer.
+     */
+    void deleteById(Long id);
 }

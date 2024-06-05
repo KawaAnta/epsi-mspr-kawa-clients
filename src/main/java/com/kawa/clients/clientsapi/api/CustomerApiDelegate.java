@@ -44,6 +44,12 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
         return ResponseEntity.ok(mapToDto(customer));
     }
 
+    @Override
+    public ResponseEntity<Void> deleteCustomerById(Long id) {
+        customerService.deleteById(id);
+        return null;
+    }
+
     @NotNull
     private static CustomerDto mapToDto(@NotNull final Customer customer) {
         return new CustomerDto(
