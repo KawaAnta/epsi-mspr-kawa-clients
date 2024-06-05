@@ -6,6 +6,7 @@ info:
 servers:
   - url: http://localhost:8080
 paths:
+
   /internal/api/v1/customers/getAll:
     get:
       tags:
@@ -21,6 +22,49 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Customer'
+
+  /internal/api/v1/customers/{id}:
+    get:
+      tags:
+        - "customers"
+      operationId: "getCustomerById"
+      parameters:
+        - name: id
+          in: path
+          description: ID du client à retrouver
+          required: true
+          schema:
+            type: integer
+            format: int64
+      summary: Récupérer un client à partir de son identifiant
+      responses:
+        '200':
+          description: Succès. Renvoie le client ayant l'identifiant concerné.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Customer'
+        '400':
+          description: ID invalide
+        '404':
+          description: Client non retrouvable
+
+    delete:
+      tags:
+        - "customers"
+      operationId: "deleteCustomerById"
+      parameters:
+        - name: id
+          in: path
+          description: ID du client à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      summary: Supprimer un client à partir de son identifiant
+      responses:
+        '400':
+          description: ID invalide
 
 components:
   schemas:
