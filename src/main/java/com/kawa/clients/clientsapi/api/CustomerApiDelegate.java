@@ -4,8 +4,7 @@ import com.kawa.clients.clientsapi.domain.service.customer.CustomerService;
 import com.kawa.clients.clientsapi.domain.service.customer.dto.Customer;
 import com.kawa.clients.generated.api.model.CustomerDto;
 import com.kawa.clients.generated.api.server.CustomersApiDelegate;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -18,61 +17,110 @@ import java.util.List;
 
 /**
  * Délégué API des clients.
- * Assure la connexion entre l'API Gateway générale et les micro-service des clients.
+ * Assure la connexion entre l'API Gateway générale et les micro-services des clients.
  */
 @Component
-@RequiredArgsConstructor
 public class CustomerApiDelegate implements CustomersApiDelegate {
 
     private final CustomerService customerService;
 
-    @Override
-    @NonNull
-    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
-        final List<Customer> customerList = customerService.getAll();
-        final List<CustomerDto> customerDtoList = new ArrayList<>(customerList.size());
-
-        for (final Customer customer : customerList) {
-            customerDtoList.add(mapToDto(customer));
-        }
-
-        return ResponseEntity.ok(customerDtoList);
+    public CustomerApiDelegate(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @Override
-    @NonNull
+    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
+        try {
+            final List<Customer> customerList = customerService.getAll();
+            final List<CustomerDto> customerDtoList = new ArrayList<>(customerList.size());
+
+            for (final Customer customer : customerList) {
+                customerDtoList.add(mapToDto(customer));
+            }
+
+            return ResponseEntity.ok(customerDtoList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @Override
     public ResponseEntity<CustomerDto> getCustomerById(Long id) {
-        final Customer customer = customerService.getById(id);
-        return ResponseEntity.ok(mapToDto(customer));
+        try {
+            Customer customer = customerService.getById(id);
+
+            if (customer.getId() == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.ok(mapToDto(customer));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @Override
     public ResponseEntity<Void> deleteCustomerById(Long id) {
-        customerService.deleteById(id);
-        return null;
+        try {
+            customerService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @Override
     public ResponseEntity<Void> createCustomer(@Valid CustomerDto customerDto) {
-        final Customer customer = Customer.builder()
-                .name(customerDto.getName())
-                .username(customerDto.getUsername())
-                .firstName(customerDto.getFirstName())
-                .lastName(customerDto.getLastName())
-                .createdAt(LocalDateTime.now())
-                .postalCode(customerDto.getPostalCode())
-                .city(customerDto.getCity())
-                .profileFirstName(customerDto.getProfileFirstName())
-                .profileLastName(customerDto.getProfileLastName())
-                .companyName(customerDto.getCompanyName()).build();
-        customerService.save(customer);
-        return ResponseEntity.ok().build();
+        try {
+            final Customer customer = Customer.builder()
+                    .name(customerDto.getName())
+                    .username(customerDto.getUsername())
+                    .firstName(customerDto.getFirstName())
+                    .lastName(customerDto.getLastName())
+                    .createdAt(LocalDateTime.now())
+                    .postalCode(customerDto.getPostalCode())
+                    .city(customerDto.getCity())
+                    .profileFirstName(customerDto.getProfileFirstName())
+                    .profileLastName(customerDto.getProfileLastName())
+                    .companyName(customerDto.getCompanyName())
+                    .build();
+
+            customerService.save(customer);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Override
+    public ResponseEntity<Void> updateCustomer(Long id, CustomerDto customerDto) {
+        try {
+            Customer customer = customerService.getById(id);
+
+            if (customer == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            customer.setName(customerDto.getName());
+            customer.setUsername(customerDto.getUsername());
+            customer.setFirstName(customerDto.getFirstName());
+            customer.setLastName(customerDto.getLastName());
+            customer.setPostalCode(customerDto.getPostalCode());
+            customer.setCity(customerDto.getCity());
+            customer.setProfileFirstName(customerDto.getProfileFirstName());
+            customer.setProfileLastName(customerDto.getProfileLastName());
+            customer.setCompanyName(customerDto.getCompanyName());
+
+            customerService.save(customer);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @NotNull
     private static CustomerDto mapToDto(@NotNull final Customer customer) {
         return new CustomerDto(
-                customer.getCreatedAt().atOffset(ZoneOffset.UTC),
                 customer.getName(),
                 customer.getUsername(),
                 customer.getFirstName(),
@@ -84,5 +132,4 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
                 customer.getCompanyName()
         );
     }
-
 }

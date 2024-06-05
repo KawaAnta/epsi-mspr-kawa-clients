@@ -75,6 +75,33 @@ paths:
         '404':
           description: Client non retrouvable
 
+    put:
+      tags:
+        - "customers"
+      operationId: "updateCustomer"
+      summary: Modifie un client
+      parameters:
+        - name: id
+          in: path
+          description: ID du client à retrouver
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: Client modifié avec succès
+        '400':
+          description: Mauvaise requête.
+        '500':
+          description: Erreur interne du serveur
+
     delete:
       tags:
         - "customers"
@@ -97,7 +124,6 @@ components:
     Customer:
       type: object
       required:
-        - createdAt
         - name
         - username
         - firstName
@@ -108,34 +134,21 @@ components:
         - profileLastName
         - companyName
       properties:
-        createdAt:
-          type: string
-          format: date-time
-          example: "2023-08-29T16:28:58.454Z"
         name:
           type: string
-          example: "Jan Schiller"
         username:
           type: string
-          example: "Kailee.Greenholt73"
         firstName:
           type: string
-          example: "Keven"
         lastName:
           type: string
-          example: "Kris"
         postalCode:
           type: string
-          example: "61432-1180"
         city:
           type: string
-          example: "St. Joseph"
         profileFirstName:
           type: string
-          example: "Mitchell"
         profileLastName:
           type: string
-          example: "Carter"
         companyName:
           type: string
-          example: "Bechtelar LLC"
