@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +52,26 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
         return null;
     }
 
-
+    @Override
+    public ResponseEntity<Void> createCustomer(@Valid CustomerDto customerDto) {
+        final Customer customer = Customer.builder()
+                .name(customerDto.getName())
+                .username(customerDto.getUsername())
+                .firstName(customerDto.getFirstName())
+                .lastName(customerDto.getLastName())
+                .createdAt(LocalDateTime.now())
+                .postalCode(customerDto.getPostalCode())
+                .city(customerDto.getCity())
+                .profileFirstName(customerDto.getProfileFirstName())
+                .profileLastName(customerDto.getProfileLastName())
+                .companyName(customerDto.getCompanyName()).build();
+        customerService.save(customer);
+        return ResponseEntity.ok().build();
+    }
 
     @NotNull
     private static CustomerDto mapToDto(@NotNull final Customer customer) {
         return new CustomerDto(
-                customer.getId(),
                 customer.getCreatedAt().atOffset(ZoneOffset.UTC),
                 customer.getName(),
                 customer.getUsername(),
