@@ -6,6 +6,7 @@ import com.kawa.clients.clientsapi.domain.ports.CustomerRepository;
 import com.kawa.clients.clientsapi.domain.service.customer.dto.Customer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public void save(Customer customer) {
-        dbRepository.save(mapper.mapFromDomain(customer));
+    public Customer save(Customer customer) {
+        return mapper.mapToDomain(dbRepository.save(mapper.mapFromDomain(customer)));
     }
 }

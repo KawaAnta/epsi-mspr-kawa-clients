@@ -10,7 +10,7 @@ paths:
   /internal/api/v1/customers:
     get:
       tags:
-        - "customers"
+        - "Customers"
       operationId: "getAllCustomers"
       summary: Récupérer tous les clients
       responses:
@@ -31,7 +31,7 @@ paths:
 
     post:
       tags:
-        - "customers"
+        - "Customers"
       operationId: "createCustomer"
       summary: Ajoute un nouveau client
       requestBody:
@@ -44,6 +44,10 @@ paths:
       responses:
         '201':
           description: Client ajouté avec succès
+          content:
+            application/json:
+              schema:
+                type: string
         '400':
           description: Mauvaise requête.
         '500':
@@ -52,7 +56,7 @@ paths:
   /internal/api/v1/customers/{id}:
     get:
       tags:
-        - "customers"
+        - "Customers"
       operationId: "getCustomerById"
       parameters:
         - name: id
@@ -75,9 +79,36 @@ paths:
         '404':
           description: Client non retrouvable
 
+    put:
+      tags:
+        - "Customers"
+      operationId: "updateCustomer"
+      summary: Modifie un client
+      parameters:
+        - name: id
+          in: path
+          description: ID du client à retrouver
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: Client modifié avec succès
+        '400':
+          description: Mauvaise requête.
+        '500':
+          description: Erreur interne du serveur
+
     delete:
       tags:
-        - "customers"
+        - "Customers"
       operationId: "deleteCustomerById"
       parameters:
         - name: id
@@ -97,45 +128,23 @@ components:
     Customer:
       type: object
       required:
-        - createdAt
         - name
-        - username
-        - firstName
-        - lastName
-        - postalCode
-        - city
-        - profileFirstName
-        - profileLastName
-        - companyName
       properties:
-        createdAt:
-          type: string
-          format: date-time
-          example: "2023-08-29T16:28:58.454Z"
         name:
           type: string
-          example: "Jan Schiller"
         username:
           type: string
-          example: "Kailee.Greenholt73"
         firstName:
           type: string
-          example: "Keven"
         lastName:
           type: string
-          example: "Kris"
         postalCode:
           type: string
-          example: "61432-1180"
         city:
           type: string
-          example: "St. Joseph"
         profileFirstName:
           type: string
-          example: "Mitchell"
         profileLastName:
           type: string
-          example: "Carter"
         companyName:
           type: string
-          example: "Bechtelar LLC"
