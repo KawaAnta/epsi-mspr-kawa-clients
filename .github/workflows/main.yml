@@ -37,3 +37,4 @@ jobs:
               echo "Some forbidden directories are not listed in .gitignore. Please ensure they are ignored."
               exit 2
             fi
+
