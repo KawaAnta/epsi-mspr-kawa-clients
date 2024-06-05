@@ -62,6 +62,12 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
     @Override
     public ResponseEntity<Void> deleteCustomerById(Long id) {
         try {
+            Customer customer = customerService.getById(id);
+
+            if (customer.getId() == null) {
+                return ResponseEntity.notFound().build();
+            }
+
             customerService.deleteById(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
@@ -97,7 +103,7 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
         try {
             Customer customer = customerService.getById(id);
 
-            if (customer == null) {
+            if (customer.getId() == null) {
                 return ResponseEntity.notFound().build();
             }
 
