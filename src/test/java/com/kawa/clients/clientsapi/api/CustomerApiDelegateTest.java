@@ -103,7 +103,7 @@ class CustomerApiDelegateTest {
     void testGetCustomerById_shouldThrowError() {
         // GIVEN
         final Long id = 1L;
-        when(mockCustomerService.getById(id)).thenReturn(null);
+        when(mockCustomerService.getById(id)).thenReturn(new Customer());
 
         // WHEN
         final ResponseEntity<CustomerDto> result = customerApiDelegateUnderTest.getCustomerById(id);
@@ -144,7 +144,7 @@ class CustomerApiDelegateTest {
     void testDeleteCustomerById_shouldThrowError() {
         // GIVEN
         final Long id = 1L;
-        when(mockCustomerService.getById(id)).thenReturn(null);
+        when(mockCustomerService.getById(id)).thenReturn(new Customer());
 
         // WHEN
         final ResponseEntity<Void> result = customerApiDelegateUnderTest.deleteCustomerById(id);
