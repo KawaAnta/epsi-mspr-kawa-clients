@@ -418,11 +418,12 @@
                     </execution>
                     <!-- Ensures that the code coverage report for integration tests after
                     integration tests have been run. -->
+                    <!-- post integration test -->
                     <execution>
                         <id>post-integration-test</id>
                         <phase>post-integration-test</phase>
                         <goals>
-                            <goal>report-integration</goal>
+                            <goal>report</goal>
                         </goals>
                         <configuration><!-- Sets the path to the file which contains the execution
 							data. -->
@@ -430,6 +431,7 @@
                             <outputDirectory>${project.coverage.directory}</outputDirectory>
                         </configuration>
                     </execution>
+                    <!-- merge unit test -->
                     <execution>
                         <id>merge-unit-and-integration</id>
                         <phase>post-integration-test</phase>
@@ -449,6 +451,7 @@
                             <destFile>${project.coverage.directory}/ut_it_merged.exec</destFile>
                         </configuration>
                     </execution>
+                    <!-- -->
                     <execution>
                         <id>report</id>
                         <phase>post-integration-test</phase>
