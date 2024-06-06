@@ -25,7 +25,7 @@ import java.util.List;
 public class CustomerApiDelegate implements CustomersApiDelegate {
 
     private final CustomerService customerService;
-
+	
     @Override
     @NonNull
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {

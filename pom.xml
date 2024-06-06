@@ -59,6 +59,9 @@
 			<id>with-javadoc-generation</id>
 			<build>
 				<plugins>
+
+
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
@@ -85,22 +88,7 @@
 							</tags>
 						</configuration>
 					</plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>${checkstyle-maven-plugin.version}</version>
-                        <configuration>
-                            <configLocation>checkstyle.xml</configLocation>
-                            <skip>true</skip>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+
 				</plugins>
 			</build>
 		</profile>
@@ -109,6 +97,11 @@
 
 
 	<dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.0.1-jre</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -281,13 +274,6 @@
 			<version>5.0.0</version>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>com.tngtech.archunit</groupId>-->
-<!--			<artifactId>archunit-junit5</artifactId>-->
-<!--			<version>1.1.0</version>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
-
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
@@ -304,6 +290,28 @@
 		</resources>
 
 		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                        <version>31.0.1-jre</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.17.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourceDirectories>src/main/java</sourceDirectories>
+                    <configLocation>checkstyle-rules.xml</configLocation>
+
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
