@@ -88,6 +88,14 @@ mvn spring-boot:run
 ```
 
 ### Contributions
+#### Checkstyle : 
+
+Please, before make a contribution and a pull-request ensure that checkstyle test are ok !
+To do so, execute commande below : 
+
+```sh
+mvn checkstyle:check 
+```
 
 #### Branch Naming Strategy :
 * fix/kawa-{ticket-number}-{brief-description-of-fix} (for bug fixes)
