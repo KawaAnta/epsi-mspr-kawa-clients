@@ -21,6 +21,10 @@ jobs:
       - name: Build with Maven
         run: mvn checkstyle:check -Dcheckstyle.config.location=checkstyle-rules.xml
 
+      - name: Build and test with Maven
+        run: mvn test
+
+
       - name: Verify Ignored Directories
         run: |
             forbidden_dirs=".idea node_modules .vscode"
@@ -38,5 +42,4 @@ jobs:
               exit 2
             fi'
 
-      - name: Build and test with Maven
-        run: mvn test
+    
