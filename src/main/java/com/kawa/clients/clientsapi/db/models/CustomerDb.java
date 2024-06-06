@@ -20,7 +20,8 @@ import java.time.LocalDateTime;
 public class CustomerDb {
     @Id
     @Column(name = "CUSTOMER_ID")
-    @SequenceGenerator(name = "customerIdGenerator", sequenceName = "CUSTOMER_SEQUENCE", allocationSize = 1)
+    @SequenceGenerator(name = "customerIdGenerator",
+            sequenceName = "CUSTOMER_SEQUENCE", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerIdGenerator")
     private Long id;
 

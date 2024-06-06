@@ -11,7 +11,8 @@ import java.util.List;
 /**
  * Classe assurant les mapping DTO -> DB et DB -> DTO pour les objets Customer.
  */
-@Mapper(componentModel = "spring", nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+@Mapper(componentModel = "spring",
+        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
 public interface CustomerMapper {
 
     /**
