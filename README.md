@@ -60,10 +60,20 @@ mvn test
 Without PostgreSQL in local :
 
 ```sh
-docker-compose up
+docker compose up
 ```
 
+To make sure the application is fully rebuilt :
+
+```sh
+docker compose build --no-cache
+docker compose up
+```
+
+Currently, the Docker build is not including tests.
+
 URL API : https://localhost:8081
+
 URL Data base: https://localhost:5433
 
 ### Running local application
