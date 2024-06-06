@@ -49,7 +49,7 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
         try {
             Customer customer = customerService.getById(id);
 
-            if (customer.getId() == null) {
+            if (customer == null) {
                 return ResponseEntity.notFound().build();
             }
 
@@ -64,7 +64,7 @@ public class CustomerApiDelegate implements CustomersApiDelegate {
         try {
             Customer customer = customerService.getById(id);
 
-            if (customer.getId() == null) {
+            if (customer == null) {
                 return ResponseEntity.notFound().build();
             }
 
