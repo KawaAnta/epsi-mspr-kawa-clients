@@ -79,7 +79,6 @@ class CustomerApiDelegateTest {
      */
     private static @NotNull CustomerDto getCustomerDto() {
         final CustomerDto customerDto = new CustomerDto();
-        customerDto.setCreatedAt(OffsetDateTime.of(LocalDateTime.of(2020, 1, 1, 0, 0, 0, 0), ZoneOffset.UTC));
         customerDto.setName("name");
         customerDto.setUsername("username");
         customerDto.setFirstName("firstName");
