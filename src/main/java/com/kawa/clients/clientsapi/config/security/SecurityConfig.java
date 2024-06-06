@@ -13,8 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * Configuration de sécurité de l'application SPRING.
- * Elle définit les autorisations et la gestion implémentés pour la vérification des sessions, des cors et des routes API
- * authorisées.
+ * Elle définit les autorisations et la gestion implémentés pour la vérification des sessions,
+ * des cors et des routes API authorisées.
  */
 @Configuration
 @ComponentScan

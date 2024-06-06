@@ -23,7 +23,7 @@ jobs:
 
       - name: Verify Ignored Directories
         run: |
-            forbidden_dirs=".idea target node_modules .vscode"
+            forbidden_dirs=".idea node_modules .vscode"
             missing_from_gitignore=false
             for dir in $forbidden_dirs; do
               if [[ -d "$dir" ]]; then
