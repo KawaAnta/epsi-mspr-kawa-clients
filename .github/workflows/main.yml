@@ -40,6 +40,6 @@ jobs:
             if $missing_from_gitignore; then
               echo "Some forbidden directories are not listed in .gitignore. Please ensure they are ignored."
               exit 2
-            fi'
+            fi
 
     
