@@ -70,6 +70,18 @@ class CustomerApiDelegateTest {
     }
 
     @Test
+    void testGetAllCustomers_shouldThrowInternalError() {
+        // GIVEN
+        when(mockCustomerService.getAll()).thenThrow(new RuntimeException());
+
+        // WHEN
+        final ResponseEntity<List<CustomerDto>> result = customerApiDelegateUnderTest.getAllCustomers();
+
+        // THEN
+        assertEquals(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null), result);
+    }
+
+    @Test
     void testGetCustomerById_shouldGetCustomer() {
         // GIVEN
         final CustomerDto customerDto = getCustomerDto();
@@ -101,6 +113,19 @@ class CustomerApiDelegateTest {
     }
 
     @Test
+    void testGetCustomerById_shouldThrowInternalError() {
+        // GIVEN
+        final Long id = 1L;
+        when(mockCustomerService.getById(id)).thenThrow(new RuntimeException());
+
+        // WHEN
+        final ResponseEntity<CustomerDto> result = customerApiDelegateUnderTest.getCustomerById(id);
+
+        // THEN
+        assertEquals(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null), result);
+    }
+
+    @Test
     void testDeleteCustomerById_shouldDeleteCustomer() {
         // GIVEN
         final Long id = 1L;
@@ -126,6 +151,19 @@ class CustomerApiDelegateTest {
 
         // THEN
         assertEquals(ResponseEntity.status(HttpStatus.NOT_FOUND).build(), result);
+    }
+
+    @Test
+    void testDeleteCustomerById_shouldThrowInternalError() {
+        // GIVEN
+        final Long id = 1L;
+        when(mockCustomerService.getById(id)).thenThrow(new RuntimeException());
+
+        // WHEN
+        final ResponseEntity<Void> result = customerApiDelegateUnderTest.deleteCustomerById(id);
+
+        // THEN
+        assertEquals(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(), result);
     }
 
     @Test
@@ -199,6 +237,22 @@ class CustomerApiDelegateTest {
     }
 
     @Test
+    void testCreateCustomer_shouldThrowErrorInternalError() {
+        // GIVEN
+        final CustomerDto customerDto = getCustomerDto();
+
+        final Customer customer = getCustomerFromDto(customerDto);
+        when(mockCustomerService.save(customer)).thenThrow(new RuntimeException());
+
+        // WHEN
+        final ResponseEntity<String> result = customerApiDelegateUnderTest.createCustomer(customerDto);
+
+        // THEN
+        assertEquals(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build().getStatusCode(),
+                result.getStatusCode());
+    }
+
+    @Test
     void testUpdateCustomer_shouldUpdateCustomer() {
         // GIVEN
         final CustomerDto customerDto = getCustomerDto();
@@ -243,6 +297,21 @@ class CustomerApiDelegateTest {
 
         // THEN
         verify(mockCustomerService, never()).save(any(Customer.class));
+    }
+
+    @Test
+    void testUpdateCustomer_shouldThrowInternalError() {
+        // GIVEN
+        final CustomerDto customerDto = getCustomerDto();
+        final Long id = 1L;
+
+        when(mockCustomerService.getById(id)).thenThrow(new RuntimeException());
+
+        // WHEN
+        final ResponseEntity<Void> result = customerApiDelegateUnderTest.updateCustomer(id, customerDto);
+
+        // THEN
+        assertEquals(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(), result);
     }
 
     /**

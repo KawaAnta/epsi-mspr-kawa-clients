@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -7,7 +8,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.15</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>com.kawa.clients</groupId>
@@ -128,7 +129,8 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
-		<!-- ajoute une description de l'API à l'URL ${URL}/swagger-ui.html pour la phase de développement -->
+		<!-- ajoute une description de l'API à l'URL ${URL}/swagger-ui.html pour la phase de
+		développement -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
@@ -325,7 +327,8 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven-surefire-plugin.version}</version>
 				<configuration>
-					<!-- force l'utilisation du bon encodage pour les tests (voir la propriété argLine plus haut) -->
+					<!-- force l'utilisation du bon encodage pour les tests (voir la propriété
+					argLine plus haut) -->
 					<argLine>@{argLine} ${argLine}</argLine>
 					<skipTests>${skip.unit.tests}</skipTests>
 					<trimStackTrace>false</trimStackTrace>
@@ -338,7 +341,8 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${maven-failsafe-plugin.version}</version>
 				<configuration>
-					<!-- force l'utilisation du bon encodage pour les tests (voir la propriété argLine plus haut) -->
+					<!-- force l'utilisation du bon encodage pour les tests (voir la propriété
+					argLine plus haut) -->
 					<argLine>@{argLine} ${argLine}</argLine>
 					<trimStackTrace>false</trimStackTrace>
 				</configuration>
@@ -357,6 +361,12 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco-maven-plugin.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>com/kawa/clients/generated/**/*</exclude>
+						<exclude>com/kawa/clients/clientsapi/db/port/**/*</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>pre-unit-tests</id>
@@ -367,7 +377,8 @@
 							<destFile>${project.coverage.directory}/jacoco-ut.exec</destFile>
 						</configuration>
 					</execution>
-					<!-- Ensures that the code coverage report for unit tests is created after unit tests have been run -->
+					<!-- Ensures that the code coverage report for unit tests is created after unit
+					tests have been run -->
 					<execution>
 						<id>post-unit-test</id>
 						<phase>test</phase>
@@ -389,14 +400,16 @@
 							<destFile>${project.coverage.directory}/jacoco-it.exec</destFile>
 						</configuration>
 					</execution>
-					<!-- Ensures that the code coverage report for integration tests after integration tests have been run. -->
+					<!-- Ensures that the code coverage report for integration tests after
+					integration tests have been run. -->
 					<execution>
 						<id>post-integration-test</id>
 						<phase>post-integration-test</phase>
 						<goals>
 							<goal>report-integration</goal>
 						</goals>
-						<configuration><!-- Sets the path to the file which contains the execution data. -->
+						<configuration><!-- Sets the path to the file which contains the execution
+							data. -->
 							<dataFile>${project.coverage.directory}/jacoco-it.exec</dataFile>
 							<outputDirectory>${project.coverage.directory}</outputDirectory>
 						</configuration>
@@ -491,7 +504,8 @@
 								<typeMapping>number=Double</typeMapping>
 							</typeMappings>
 
-							<!-- Répertoire où trouver les patrons de génération des classes java représentant
+							<!-- Répertoire où trouver les patrons de génération des classes java
+							représentant
                             les entités. Permet d'ajouter des constructeurs dotés de paramètres. -->
 							<templateDirectory>${project.basedir}/src/main/resources/classTemplates</templateDirectory>
 
@@ -500,7 +514,8 @@
 								<useBeanValidation>true</useBeanValidation>
 								<performBeanValidation>true</performBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
-								<!-- Ensemble de classes java utilisées pour la représentation des dates-->
+								<!-- Ensemble de classes java utilisées pour la représentation des
+								dates-->
 								<dateLibrary>java8</dateLibrary>
 								<!-- les contrôleurs générés lèvent une exception générique -->
 								<unhandledException>true</unhandledException>
