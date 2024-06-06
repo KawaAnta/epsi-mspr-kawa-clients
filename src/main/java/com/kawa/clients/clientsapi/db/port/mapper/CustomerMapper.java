@@ -15,7 +15,7 @@ import java.util.List;
 public interface CustomerMapper {
 
     /**
-     * Transforme l'objet DB en DTO
+     * Transforme l'objet DB en DTO.
      *
      * @param entity l'objet DB
      * @return l'objet DTO
