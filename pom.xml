@@ -385,7 +385,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>pre-unit-tests</id>
+                        <id>default-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
@@ -397,7 +397,7 @@
                     tests have been run -->
                     <execution>
                         <id>post-unit-test</id>
-                        <phase>post-unit-test</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
