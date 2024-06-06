@@ -390,18 +390,20 @@
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-                            <destFile>${project.build.directory}/jacoco-ut.exec</destFile>
+                            <destFile>${project.coverage.directory}/jacoco-ut.exec</destFile>
                         </configuration>
                     </execution>
+                    <!-- Ensures that the code coverage report for unit tests is created after unit
+                    tests have been run -->
                     <execution>
                         <id>post-unit-test</id>
-                        <phase>test</phase>
+                        <phase>post-unit-test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                         <configuration>
-                            <dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                            <dataFile>${project.coverage.directory}/jacoco-ut.exec</dataFile>
+                            <outputDirectory>${project.coverage.directory}</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -411,18 +413,21 @@
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-                            <destFile>${project.build.directory}/jacoco-it.exec</destFile>
+                            <destFile>${project.coverage.directory}/jacoco-it.exec</destFile>
                         </configuration>
                     </execution>
+                    <!-- Ensures that the code coverage report for integration tests after
+                    integration tests have been run. -->
                     <execution>
                         <id>post-integration-test</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>report-integration</goal>
                         </goals>
-                        <configuration>
-                            <dataFile>${project.build.directory}/jacoco-it.exec</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        <configuration><!-- Sets the path to the file which contains the execution
+							data. -->
+                            <dataFile>${project.coverage.directory}/jacoco-it.exec</dataFile>
+                            <outputDirectory>${project.coverage.directory}</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -434,14 +439,14 @@
                         <configuration>
                             <fileSets>
                                 <fileSet>
-                                    <directory>${project.build.directory}</directory>
+                                    <directory>${project.coverage.directory}</directory>
                                     <includes>
                                         <include>jacoco-it.exec</include>
                                         <include>jacoco-ut.exec</include>
                                     </includes>
                                 </fileSet>
                             </fileSets>
-                            <destFile>${project.build.directory}/jacoco-merged.exec</destFile>
+                            <destFile>${project.coverage.directory}/ut_it_merged.exec</destFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -451,10 +456,11 @@
                             <goal>report</goal>
                         </goals>
                         <configuration>
-                            <dataFile>${project.build.directory}/jacoco-merged.exec</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                            <dataFile>${project.coverage.directory}/ut_it_merged.exec</dataFile>
+                            <outputDirectory>${project.coverage.directory}</outputDirectory>
                         </configuration>
                     </execution>
+
                 </executions>
             </plugin>
 			<plugin>
