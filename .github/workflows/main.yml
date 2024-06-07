@@ -39,11 +39,11 @@ jobs:
     - name: Generate report
       run: mvn clean verify jacoco:report
 
-#    - name: Upload coverage report artifact
-#      uses: actions/upload-artifact@v2
-#      with:
-#          name: report.xml
-#          path: ${{ github.workspace }}/target/jacoco-report/jacoco.xml
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2
+      with:
+          name: report.xml
+          path: ${{ github.workspace }}/target/jacoco-report/jacoco.xml
 
     - name: Debug JaCoCo report path
       run: ls -R ${{ github.workspace }}/target/jacoco-report/
