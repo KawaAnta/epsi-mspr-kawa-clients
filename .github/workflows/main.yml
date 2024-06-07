@@ -37,8 +37,8 @@ jobs:
         java-version: 17
         distribution: 'adopt'
 
-    - name: Build and test with Maven
-      run: mvn clean verify jacoco:report
+#    - name: Build and test with Maven
+#      run: mvn clean verify jacoco:report
 
     - name: build 2
       run: mvn --batch-mode --update-snapshots test
@@ -47,7 +47,9 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: report.xml
-          path: ${{ github.workspace }}/target/jacoco-report/jacoco.xml
+          path: |
+            ${{ github.workspace }}/target/jacoco-report/jacoco.xml
+            ${{ github.workspace }}/target/jacoco-report/jacoco-sessions.xml
 
     - name: Debug JaCoCo report path
       run: ls -R ${{ github.workspace }}/target/jacoco-report/
