@@ -49,7 +49,6 @@ jobs:
           name: report.xml
           path:
             ${{ github.workspace }}/target/jacoco-report/jacoco.xml
-            ${{ github.workspace }}/target/jacoco-report/jacoco-sessions.xml
 
     - name: Debug JaCoCo report path
       run: ls -R ${{ github.workspace }}/target/jacoco-report/
@@ -68,6 +67,11 @@ jobs:
         title: '# :lobster: Coverage Report'
         pass-emoji: ':green_circle:'
         fail-emoji: ':red_circle:'
+
+    - name: Get the Coverage info
+      run: |
+          echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
+          echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
 
 #  jacoco:
 #    runs-on: ubuntu-latest
