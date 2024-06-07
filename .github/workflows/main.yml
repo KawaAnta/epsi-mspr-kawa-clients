@@ -71,6 +71,7 @@ jobs:
         pass-emoji: ':green_circle:'
         fail-emoji: ':red_circle:'
         update-comment: true
+        continue-on-error: false
 
 
     - name: Get the Coverage info

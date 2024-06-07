@@ -383,6 +383,25 @@
                     <excludes>
                         <exclude>com/kawa/clients/generated/**/*</exclude>
                         <exclude>com/kawa/clients/clientsapi/db/port/**/*</exclude>
+                        <exclude>**/R.class</exclude>
+                        <exclude>**/R$*.class</exclude>
+                        <exclude>**/BuildConfig.*</exclude>
+                        <exclude>**/Manifest*.*</exclude>
+                        <exclude>**/*Test*.*</exclude>
+                        <exclude>android/**/*.*</exclude>
+                        <exclude>androidx/**/*.*</exclude>
+                        <exclude>**/*$ViewInjector*.*</exclude>
+                        <exclude>**/*Dagger*.*</exclude>
+                        <exclude>**/*MembersInjector*.*</exclude>
+                        <exclude>**/*_Factory.*</exclude>
+                        <exclude>**/*_Provide*Factory*.*</exclude>
+                        <exclude>**/*_ViewBinding*.*</exclude>
+                        <exclude>**/AutoValue_*.*</exclude>
+                        <exclude>**/R2.class</exclude>
+                        <exclude>**/R2$*.class</exclude>
+                        <exclude>**/*Directions$*</exclude>
+                        <exclude>**/*Directions.*</exclude>
+                        <exclude>**/*Binding.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -394,6 +413,7 @@
                         </goals>
                         <configuration>
                             <destFile>${project.build.directory}/jacoco-ut.exec</destFile>
+                            <append>true</append>
                         </configuration>
                     </execution>
                     <!-- Generate report after unit tests -->
@@ -406,11 +426,14 @@
                         <configuration>
                             <dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
                             <outputDirectory>${project.build.directory}/jacoco-report</outputDirectory>
+                            <formats>
+                                <format>HTML</format>
+                                <format>XML</format>
+                            </formats>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
 
             <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
