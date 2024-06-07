@@ -46,6 +46,9 @@ jobs:
           name: report.xml
           path: ${{ github.workspace }}/target/jacoco-report/jacoco.xml
 
+    - name: Debug JaCoCo report path
+      run: ls -R ${{ github.workspace }}/target/site/jacoco/
+
     - name: Add coverage to PR
       id: jacoco
       uses: madrapps/jacoco-report@v1.6.1
