@@ -59,7 +59,6 @@ jobs:
       with:
         paths:
           ${{ github.workspace }}/target/jacoco-report/jacoco.xml
-          ${{ github.workspace }}/target/jacoco-report/jacoco-sessions.html
         token: ${{ secrets.GITHUB_TOKEN }}
         min-coverage-overall: 95
         min-coverage-changed-files: 0
