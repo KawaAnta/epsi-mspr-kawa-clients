@@ -40,6 +40,9 @@ jobs:
     - name: Build and test with Maven
       run: mvn clean verify jacoco:report
 
+    - name: build 2
+      run: mvn --batch-mode --update-snapshots test
+
     - name: Upload coverage report artifact
       uses: actions/upload-artifact@v2
       with:
@@ -51,7 +54,7 @@ jobs:
 
     - name: Add coverage to PR
       id: jacoco
-      uses: madrapps/jacoco-report@v1.6.1
+      uses: madrapps/jacoco-report@multi-module-support
       with:
         paths: |
           ${{ github.workspace }}/target/jacoco-report/jacoco.xml
