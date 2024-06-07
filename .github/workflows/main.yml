@@ -37,11 +37,11 @@ jobs:
         java-version: 17
         distribution: 'adopt'
 
-#    - name: Build and test with Maven
-#      run: mvn clean verify jacoco:report
+    - name: Build and test with Maven
+      run: mvn clean verify jacoco:report
 
-    - name: build 2
-      run: mvn --batch-mode --update-snapshots test
+#    - name: build 2
+#      run: mvn --batch-mode --update-snapshots test
 
     - name: Upload coverage report artifact
       uses: actions/upload-artifact@v2
