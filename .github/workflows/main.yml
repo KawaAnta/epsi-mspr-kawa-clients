@@ -25,6 +25,7 @@ jobs:
         run: mvn checkstyle:check -Dcheckstyle.config.location=checkstyle-rules.xml
 
   jacoco:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
