@@ -50,13 +50,6 @@ jobs:
           path:
             ${{ github.workspace }}/target/jacoco-report/jacoco.xml
 
-    - name: Debug JaCoCo report path
-      run: ls -R ${{ github.workspace }}/target/jacoco-report/
-
-    - name: Debug JaCoCo report content
-      run: cat ${{ github.workspace }}/target/jacoco-report/jacoco.xml
-
-
     - name: Add coverage to PR
       id: jacoco
       uses: madrapps/jacoco-report@v1.6.1
@@ -72,7 +65,7 @@ jobs:
         fail-emoji: ':red_circle:'
         update-comment: true
         continue-on-error: false
-
+        include-code: true
 
     - name: Get the Coverage info
       run: |
