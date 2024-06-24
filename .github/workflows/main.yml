@@ -61,9 +61,9 @@ jobs:
         pass-emoji: ':green_circle:'
         fail-emoji: ':red_circle:'
         continue-on-error: false
-
+      
     - name: Get the Coverage info
       run: |
           echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
-          echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
+          echo "Changed Files coverage test"
 
