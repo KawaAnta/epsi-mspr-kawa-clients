@@ -40,9 +40,6 @@ jobs:
     - name: Build and test with Maven
       run: mvn clean verify jacoco:report
 
-#    - name: build 2
-#      run: mvn --batch-mode --update-snapshots test
-
     - name: Upload coverage report artifact
       uses: actions/upload-artifact@v4
       with:
@@ -65,12 +62,12 @@ jobs:
           ${{ github.workspace }}/target/jacoco-report/*.xml
         token: ${{ secrets.GITHUB_TOKEN }}
         min-coverage-overall: 95
-        min-coverage-changed-files: 0
+        min-coverage-changed-files: 10
         debug-mode: true
         title: '# :lobster: Coverage Report'
         pass-emoji: ':green_circle:'
         fail-emoji: ':red_circle:'
-        update-comment: true
+        update-comment: false
         continue-on-error: false
 
 
