@@ -67,3 +67,24 @@ jobs:
           echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
           echo "Changed Files coverage test"
 
+          - name: Create Coverage Comment
+          run: |
+            overall_coverage=${{ steps.jacoco.outputs.coverage-overall }}
+            changed_files_coverage=${{ steps.jacoco.outputs.coverage-changed-files }}
+            if [ -z "$changed_files_coverage" ]; then
+              changed_files_coverage="There is no coverage information present for the Files changed"
+            fi
+    
+            coverage_report="🦞 Coverage Report\n"
+            coverage_report+="Overall Project\t${overall_coverage}%\t🔴\n"
+            coverage_report+="${changed_files_coverage}"
+    
+            echo "$coverage_report"
+            echo "##[set-output name=coverage-comment::$coverage_report]"
+    
+    - name: Post Coverage Comment to PR
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        header: Coverage Report
+        message: ${{ steps.coverage-info.outputs.coverage-comment }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
