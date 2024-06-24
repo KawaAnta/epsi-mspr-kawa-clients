@@ -45,25 +45,23 @@ jobs:
       with:
           name: report.xml
           path:
-            ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
+            ${{ github.workspace }}/target/jacoco-report/jacoco.xml
 
 
     - name: Add coverage to PR
       id: jacoco
       uses: madrapps/jacoco-report@v1.6.1
       with:
-        paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
+        paths:
+          ${{ github.workspace }}/target/jacoco-report/*.xml
         token: ${{ secrets.GITHUB_TOKEN }}
         min-coverage-overall: 95
         min-coverage-changed-files: 10
-        debug-mode: true
         title: '# :lobster: Coverage Report'
         pass-emoji: ':green_circle:'
         fail-emoji: ':red_circle:'
-        update-comment: false
         continue-on-error: false
 
-      #..
     - name: Get the Coverage info
       run: |
           echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
