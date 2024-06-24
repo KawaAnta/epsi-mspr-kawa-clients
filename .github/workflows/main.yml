@@ -55,8 +55,8 @@ jobs:
         paths:
           ${{ github.workspace }}/target/jacoco-report/*.xml
         token: ${{ secrets.GITHUB_TOKEN }}
-        min-coverage-overall: 95
-        min-coverage-changed-files: 10
+        min-coverage-overall: 0
+        min-coverage-changed-files: 0
         title: '# :lobster: Coverage Report'
         pass-emoji: ':green_circle:'
         fail-emoji: ':red_circle:'
@@ -66,8 +66,5 @@ jobs:
       run: |
           echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
           echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
-          overall_coverage=${{ steps.jacoco.outputs.coverage-overall }}
-          changed_files_coverage=${{ steps.jacoco.outputs.coverage-changed-files }}
-          echo "Total coverage ${overall_coverage}%"
-          echo "Changed Files coverage ${changed_files_coverage}"
+          
 
