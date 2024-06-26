@@ -82,6 +82,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Copy .env file
+        run: cp .env ${{ github.workspace }}
+
       - name: Login to Heroku Docker Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
