@@ -6,6 +6,11 @@ COPY src ./src
 COPY .env .
 RUN mvn clean package -Dmaven.test.skip
 
+# Env secrets github
+ENV HEROKU_API_KEY=${HEROKU_API_KEY}
+ENV HEROKU_APP_NAME=${HEROKU_APP_NAME}
+ENV DATABASE_URL=${DATABASE_URL}
+
 # Running stage
 FROM openjdk:17
 VOLUME /tmp
