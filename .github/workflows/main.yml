@@ -76,33 +76,23 @@ jobs:
           echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
           echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
 
-  name: Deploy to Heroku
+  deploysHeroku:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
+    - name: Login to Heroku Docker Registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
 
-  on:
-  push:
-  branches:
-      - develop
-
-    jobs:
-    deploy:
-      runs-on: ubuntu-latest
-
-      steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Login to Heroku Docker Registry
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
-
-      - name: Build, Push and Release microservice1
-        env:
-          HEROKU_APP_NAME: microservice1-app
-        run: |
-          docker build -t registry.heroku.com/${HEROKU_APP_NAME}/web .
-          docker push registry.heroku.com/${HEROKU_APP_NAME}/web
-          heroku container:release web --app ${HEROKU_APP_NAME}
+    - name: Build, Push and Release microservice1
+      env:
+        HEROKU_APP_NAME: microservice1-app
+      run: |
+        docker build -t registry.heroku.com/${HEROKU_APP_NAME}/web .
+        docker push registry.heroku.com/${HEROKU_APP_NAME}/web
+        heroku container:release web --app ${HEROKU_APP_NAME}
 
