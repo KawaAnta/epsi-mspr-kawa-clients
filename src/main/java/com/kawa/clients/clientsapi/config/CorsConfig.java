@@ -1,4 +1,4 @@
-package com.kawa.clients.clientsapi.config.security;
+package com.kawa.clients.clientsapi.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

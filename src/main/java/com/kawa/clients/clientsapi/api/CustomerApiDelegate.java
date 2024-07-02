@@ -4,12 +4,12 @@ import com.kawa.clients.clientsapi.domain.service.customer.CustomerService;
 import com.kawa.clients.clientsapi.domain.service.customer.dto.Customer;
 import com.kawa.clients.generated.api.model.CustomerDto;
 import com.kawa.clients.generated.api.server.CustomersApiDelegate;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -9,6 +9,6 @@ RUN mvn clean package -Dmaven.test.skip
 # Running stage
 FROM openjdk:17
 VOLUME /tmp
-EXPOSE 8080
+EXPOSE 8083
 COPY --from=build /app/target/clients-api-0.0.1-SNAPSHOT.jar client_api.jar
 ENTRYPOINT ["java","-jar","/client_api.jar"]

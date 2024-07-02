@@ -4,7 +4,7 @@ info:
   description: API pour gérer les clients
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:8084
 paths:
 
   /internal/api/v1/customers:
