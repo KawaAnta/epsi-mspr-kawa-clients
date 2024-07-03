@@ -15,7 +15,7 @@
 	<artifactId>clients-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>clients-api</name>
-	<description>Demo project for Spring Boot</description>
+	<description>API microservice des clients KAWA</description>
 
 	<properties>
 		<start-class>com.kawa.clients.clientsapi.ClientsApiApplication</start-class>
