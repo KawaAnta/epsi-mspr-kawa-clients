@@ -2,7 +2,9 @@ name: Integration workflow
 
 on:
   pull_request:
-    branches: [develop]
+    branches:
+      - develop
+      - main
   push:
     branches:
       - release
