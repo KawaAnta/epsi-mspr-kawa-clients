@@ -4,9 +4,10 @@ info:
   description: API pour gérer les clients
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:8084
 paths:
-  /api/customers/getAll:
+
+  /internal/api/v1/customers:
     get:
       tags:
         - "Customers"
@@ -21,74 +22,129 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Customer'
+        '400':
+          description: Mauvaise requête
+        '404':
+          description: Clients non retrouvables
+        '500':
+          description: Erreur interne du serveur
+
+    post:
+      tags:
+        - "Customers"
+      operationId: "createCustomer"
+      summary: Ajoute un nouveau client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+
+      responses:
+        '201':
+          description: Client ajouté avec succès
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Mauvaise requête.
+        '500':
+          description: Erreur interne du serveur
+
+  /internal/api/v1/customers/{id}:
+    get:
+      tags:
+        - "Customers"
+      operationId: "getCustomerById"
+      parameters:
+        - name: id
+          in: path
+          description: ID du client à retrouver
+          required: true
+          schema:
+            type: integer
+            format: int64
+      summary: Récupérer un client à partir de son identifiant
+      responses:
+        '200':
+          description: Succès. Renvoie le client ayant l'identifiant concerné.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Customer'
+        '400':
+          description: ID invalide
+        '404':
+          description: Client non retrouvable
+
+    put:
+      tags:
+        - "Customers"
+      operationId: "updateCustomer"
+      summary: Modifie un client
+      parameters:
+        - name: id
+          in: path
+          description: ID du client à retrouver
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: Client modifié avec succès
+        '400':
+          description: Mauvaise requête.
+        '500':
+          description: Erreur interne du serveur
+
+    delete:
+      tags:
+        - "Customers"
+      operationId: "deleteCustomerById"
+      parameters:
+        - name: id
+          in: path
+          description: ID du client à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      summary: Supprimer un client à partir de son identifiant
+      responses:
+        '400':
+          description: ID invalide
+
 components:
   schemas:
     Customer:
       type: object
+      required:
+        - name
       properties:
-        createdAt:
-          type: string
-          format: date-time
-          example: "2023-08-29T16:28:58.454Z"
         name:
           type: string
-          example: "Jan Schiller"
         username:
           type: string
-          example: "Kailee.Greenholt73"
         firstName:
           type: string
-          example: "Keven"
         lastName:
           type: string
-          example: "Kris"
-        address:
-          $ref: '#/components/schemas/Address'
-        profile:
-          $ref: '#/components/schemas/Profile'
-        company:
-          $ref: '#/components/schemas/Company'
-        id:
-          type: string
-          example: "11"
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-    Address:
-      type: object
-      properties:
         postalCode:
           type: string
-          example: "61432-1180"
         city:
           type: string
-          example: "St. Joseph"
-    Profile:
-      type: object
-      properties:
-        firstName:
+        profileFirstName:
           type: string
-          example: "Mitchell"
-        lastName:
+        profileLastName:
           type: string
-          example: "Carter"
-    Company:
-      type: object
-      properties:
         companyName:
           type: string
-          example: "Bechtelar LLC"
-    Order:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-          example: "2023-08-30T08:35:27.416Z"
-        id:
-          type: string
-          example: "3"
-        customerId:
-          type: string
-          example: "11"
